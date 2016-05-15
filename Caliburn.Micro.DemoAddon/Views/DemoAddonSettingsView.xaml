@@ -1,0 +1,10 @@
+﻿<UserControl x:Class="Caliburn.Micro.DemoAddon.Views.DemoAddonSettingsView"
+			xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<StackPanel>
+		<DockPanel LastChildFill="True">
+			<Label x:Name="DemoAddonTranslations_SomeText" Width="100" />
+			<TextBox x:Name="DemoAddonConfiguration_DemoAddonText" />
+		</DockPanel>
+	</StackPanel>
+</UserControl>

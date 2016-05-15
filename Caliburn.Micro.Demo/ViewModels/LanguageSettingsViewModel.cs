@@ -21,37 +21,41 @@
 
 #region using
 
-using System.Windows;
-using Dapplo.Addons;
-using Dapplo.Addons.Bootstrapper;
-using Dapplo.LogFacade;
-using Dapplo.LogFacade.Loggers;
+using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using System.Threading.Tasks;
+using Caliburn.Micro.Demo.Interfaces;
+using Caliburn.Micro.Demo.Models;
+using Dapplo.Config.Language;
 
 #endregion
 
-namespace Caliburn.Micro.Demo
+namespace Caliburn.Micro.Demo.ViewModels
 {
-	/// <summary>
-	///     Interaction logic for App.xaml
-	/// </summary>
-	public partial class App
+	[Export(typeof(ISettingsControl))]
+	public class LanguageSettingsViewModel : ISettingsControl
 	{
-		private readonly ApplicationBootstrapper _bootstrapper = new ApplicationBootstrapper("Demo", "1234456789");
+		public IDictionary<string, string> AvailableLanguages => LanguageLoader.Current.AvailableLanguages;
 
-		public App()
-		{
-			InitializeComponent();
-		}
+		/// <summary>
+		///     Can the login button be pressed?
+		/// </summary>
+		public bool CanChangeLanguage => !string.IsNullOrWhiteSpace(DemoConfiguration.Language);
 
-		private async void App_OnStartup(object sender, StartupEventArgs e)
+		[Import]
+		public ICoreTranslations CoreTranslations { get; set; }
+
+		[Import]
+		public IDemoConfiguration DemoConfiguration { get; set; }
+
+		/// <summary>
+		///     Implement the IHaveDisplayName
+		/// </summary>
+		public string DisplayName { get; set; } = "Language";
+
+		public async Task ChangeLanguage()
 		{
-			LogSettings.Logger = new DebugLogger {Level = LogLevel.Verbose};
-#if DEBUG
-			_bootstrapper.Add(@"..\..\..\Caliburn.Micro.DemoAddon\bin\Debug", "Caliburn.Micro.DemoAddon.dll");
-#else
-			_bootstrapper.Add(@"..\..\..\Caliburn.Micro.DemoAddon\bin\Release", "Caliburn.Micro.DemoAddon.dll");
-#endif
-			await _bootstrapper.RunAsync();
+			await LanguageLoader.Current.ChangeLanguageAsync(DemoConfiguration.Language);
 		}
 	}
 }

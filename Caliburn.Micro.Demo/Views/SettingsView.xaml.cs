@@ -21,37 +21,20 @@
 
 #region using
 
-using System.Windows;
-using Dapplo.Addons;
-using Dapplo.Addons.Bootstrapper;
-using Dapplo.LogFacade;
-using Dapplo.LogFacade.Loggers;
+using System.Windows.Controls;
 
 #endregion
 
-namespace Caliburn.Micro.Demo
+namespace Caliburn.Micro.Demo.Views
 {
 	/// <summary>
-	///     Interaction logic for App.xaml
+	///     Interaction logic for CredentialsView.xaml
 	/// </summary>
-	public partial class App
+	public partial class SettingsView : UserControl
 	{
-		private readonly ApplicationBootstrapper _bootstrapper = new ApplicationBootstrapper("Demo", "1234456789");
-
-		public App()
+		public SettingsView()
 		{
 			InitializeComponent();
-		}
-
-		private async void App_OnStartup(object sender, StartupEventArgs e)
-		{
-			LogSettings.Logger = new DebugLogger {Level = LogLevel.Verbose};
-#if DEBUG
-			_bootstrapper.Add(@"..\..\..\Caliburn.Micro.DemoAddon\bin\Debug", "Caliburn.Micro.DemoAddon.dll");
-#else
-			_bootstrapper.Add(@"..\..\..\Caliburn.Micro.DemoAddon\bin\Release", "Caliburn.Micro.DemoAddon.dll");
-#endif
-			await _bootstrapper.RunAsync();
 		}
 	}
 }

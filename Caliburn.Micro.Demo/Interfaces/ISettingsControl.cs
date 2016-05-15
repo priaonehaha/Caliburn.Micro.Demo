@@ -19,39 +19,9 @@
 //  You should have a copy of the GNU Lesser General Public License
 //  along with Caliburn.Micro.Demo. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
 
-#region using
-
-using System.Windows;
-using Dapplo.Addons;
-using Dapplo.Addons.Bootstrapper;
-using Dapplo.LogFacade;
-using Dapplo.LogFacade.Loggers;
-
-#endregion
-
-namespace Caliburn.Micro.Demo
+namespace Caliburn.Micro.Demo.Interfaces
 {
-	/// <summary>
-	///     Interaction logic for App.xaml
-	/// </summary>
-	public partial class App
+	public interface ISettingsControl : IHaveDisplayName
 	{
-		private readonly ApplicationBootstrapper _bootstrapper = new ApplicationBootstrapper("Demo", "1234456789");
-
-		public App()
-		{
-			InitializeComponent();
-		}
-
-		private async void App_OnStartup(object sender, StartupEventArgs e)
-		{
-			LogSettings.Logger = new DebugLogger {Level = LogLevel.Verbose};
-#if DEBUG
-			_bootstrapper.Add(@"..\..\..\Caliburn.Micro.DemoAddon\bin\Debug", "Caliburn.Micro.DemoAddon.dll");
-#else
-			_bootstrapper.Add(@"..\..\..\Caliburn.Micro.DemoAddon\bin\Release", "Caliburn.Micro.DemoAddon.dll");
-#endif
-			await _bootstrapper.RunAsync();
-		}
 	}
 }

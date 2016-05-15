@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<language>
+	<resources prefix="DemoAddon">
+		<resource name="SomeText">Etwas text</resource>
+	</resources>
+</language>

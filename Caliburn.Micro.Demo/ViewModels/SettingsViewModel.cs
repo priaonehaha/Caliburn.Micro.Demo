@@ -21,37 +21,43 @@
 
 #region using
 
-using System.Windows;
-using Dapplo.Addons;
-using Dapplo.Addons.Bootstrapper;
-using Dapplo.LogFacade;
-using Dapplo.LogFacade.Loggers;
+using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using Caliburn.Micro.Demo.Interfaces;
+using Caliburn.Micro.Demo.Models;
+using Dapplo.Config.Language;
+using Dapplo.Utils;
 
 #endregion
 
-namespace Caliburn.Micro.Demo
+namespace Caliburn.Micro.Demo.ViewModels
 {
 	/// <summary>
-	///     Interaction logic for App.xaml
+	///     A view model for credentials (username / password)
 	/// </summary>
-	public partial class App
+	[Export(typeof(IShell))]
+	public class SettingsViewModel : Conductor<ISettingsControl>.Collection.OneActive, IShell
 	{
-		private readonly ApplicationBootstrapper _bootstrapper = new ApplicationBootstrapper("Demo", "1234456789");
+		[Import]
+		private IDemoConfiguration DemoConfiguration { get; set; }
 
-		public App()
+		[ImportMany]
+		private IEnumerable<ISettingsControl> SettingsControls { get; set; }
+
+		public void ActivateChildView(ISettingsControl view)
 		{
-			InitializeComponent();
+			ActivateItem(view);
 		}
 
-		private async void App_OnStartup(object sender, StartupEventArgs e)
+		protected override void OnActivate()
 		{
-			LogSettings.Logger = new DebugLogger {Level = LogLevel.Verbose};
-#if DEBUG
-			_bootstrapper.Add(@"..\..\..\Caliburn.Micro.DemoAddon\bin\Debug", "Caliburn.Micro.DemoAddon.dll");
-#else
-			_bootstrapper.Add(@"..\..\..\Caliburn.Micro.DemoAddon\bin\Release", "Caliburn.Micro.DemoAddon.dll");
-#endif
-			await _bootstrapper.RunAsync();
+			base.OnActivate();
+			var lang = DemoConfiguration.Language;
+
+			// Add all the imported settings controls
+			Items.AddRange(SettingsControls);
+
+			UiContext.RunOn(async () => await LanguageLoader.Current.ChangeLanguageAsync(lang)).Wait();
 		}
 	}
 }
