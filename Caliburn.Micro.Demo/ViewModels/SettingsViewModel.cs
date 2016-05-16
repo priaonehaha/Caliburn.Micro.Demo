@@ -27,13 +27,15 @@ using Caliburn.Micro.Demo.Interfaces;
 using Caliburn.Micro.Demo.Models;
 using Dapplo.Config.Language;
 using Dapplo.Utils;
+using Dapplo.CaliburnMicro;
 
 #endregion
 
 namespace Caliburn.Micro.Demo.ViewModels
 {
 	/// <summary>
-	///     A view model for credentials (username / password)
+	/// The settings view model is, well... for the settings :)
+	/// It is a conductor where one item is active.
 	/// </summary>
 	[Export(typeof(IShell))]
 	public class SettingsViewModel : Conductor<ISettingsControl>.Collection.OneActive, IShell
@@ -41,20 +43,32 @@ namespace Caliburn.Micro.Demo.ViewModels
 		[Import]
 		private IDemoConfiguration DemoConfiguration { get; set; }
 
+		/// <summary>
+		/// Get all settings controls, these are the items that are displayed.
+		/// </summary>
 		[ImportMany]
 		private IEnumerable<ISettingsControl> SettingsControls { get; set; }
 
+		/// <summary>
+		/// This is called when an item from the itemssource is selected
+		/// And will make sure that the selected item is made visible.
+		/// </summary>
+		/// <param name="view"></param>
 		public void ActivateChildView(ISettingsControl view)
 		{
 			ActivateItem(view);
 		}
 
+		/// <summary>
+		/// As soon as it's activated, the items that are imported are add to the Observable Items collection.
+		/// </summary>
 		protected override void OnActivate()
 		{
 			base.OnActivate();
 			var lang = DemoConfiguration.Language;
 
 			// Add all the imported settings controls
+			// TODO: Sort them for a tree view, somehow...
 			Items.AddRange(SettingsControls);
 
 			UiContext.RunOn(async () => await LanguageLoader.Current.ChangeLanguageAsync(lang)).Wait();

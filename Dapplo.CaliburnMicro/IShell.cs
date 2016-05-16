@@ -19,7 +19,7 @@
 //  You should have a copy of the GNU Lesser General Public License
 //  along with Caliburn.Micro.Demo. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
 
-namespace Caliburn.Micro.Demo.Interfaces
+namespace Dapplo.CaliburnMicro
 {
 	public interface IShell
 	{

@@ -24,11 +24,12 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Windows;
+using Caliburn.Micro;
 using MahApps.Metro.Controls;
 
 #endregion
 
-namespace Caliburn.Micro.Demo
+namespace Dapplo.CaliburnMicro.MahApps
 {
 	/// <summary>
 	///     This comes from https://github.com/ziyasal/Caliburn.Metro/blob/master/Caliburn.Metro.Core/MetroWindowManager.cs

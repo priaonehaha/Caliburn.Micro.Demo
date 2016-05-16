@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caliburn.Micro.Demo", "Cali
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caliburn.Micro.DemoAddon", "Caliburn.Micro.DemoAddon\Caliburn.Micro.DemoAddon.csproj", "{75DBD9E7-5D5A-4D83-8F03-8C7DB4A86256}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapplo.CaliburnMicro", "Dapplo.CaliburnMicro\Dapplo.CaliburnMicro.csproj", "{4A9495B8-3638-4D5B-9D57-1A32F27E9C03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapplo.CaliburnMicro.MahApps", "Dapplo.CaliburnMicro.MahApps\Dapplo.CaliburnMicro.MahApps.csproj", "{543ECF9B-9D56-4E87-A093-89EA2214424A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{75DBD9E7-5D5A-4D83-8F03-8C7DB4A86256}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75DBD9E7-5D5A-4D83-8F03-8C7DB4A86256}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75DBD9E7-5D5A-4D83-8F03-8C7DB4A86256}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A9495B8-3638-4D5B-9D57-1A32F27E9C03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A9495B8-3638-4D5B-9D57-1A32F27E9C03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A9495B8-3638-4D5B-9D57-1A32F27E9C03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A9495B8-3638-4D5B-9D57-1A32F27E9C03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{543ECF9B-9D56-4E87-A093-89EA2214424A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{543ECF9B-9D56-4E87-A093-89EA2214424A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{543ECF9B-9D56-4E87-A093-89EA2214424A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{543ECF9B-9D56-4E87-A093-89EA2214424A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

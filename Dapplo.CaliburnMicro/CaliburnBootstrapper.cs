@@ -28,19 +28,18 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
-using Caliburn.Micro.Demo.Interfaces;
-using Caliburn.Micro.Demo.ViewModels;
+using Caliburn.Micro;
 using Dapplo.Addons;
+using System.Windows;
 
 #endregion
 
-namespace Caliburn.Micro.Demo
+namespace Dapplo.CaliburnMicro
 {
 	/// <summary>
 	///     An implementation of the Caliburn Micro Bootstrapper which is strted from the Dapplo ApplicationBootstrapper (MEF)
 	/// </summary>
-	[StartupAction]
+	[StartupAction(StartupOrder = 100)]
 	public class CaliburnBootstrapper : BootstrapperBase, IStartupAction
 	{
 		[Import]
@@ -59,6 +58,11 @@ namespace Caliburn.Micro.Demo
 		public Task StartAsync(CancellationToken token = default(CancellationToken))
 		{
 			Initialize();
+			var windowManagers = ServiceLocator.GetExports<IWindowManager>();
+			if (!windowManagers.Any())
+			{
+				ServiceExporter.Export<IWindowManager>(new WindowManager());
+			}
 			OnStartup(this, null);
 			return Task.FromResult(true);
 		}

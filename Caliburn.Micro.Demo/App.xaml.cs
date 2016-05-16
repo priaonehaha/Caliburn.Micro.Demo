@@ -22,7 +22,6 @@
 #region using
 
 using System.Windows;
-using Dapplo.Addons;
 using Dapplo.Addons.Bootstrapper;
 using Dapplo.LogFacade;
 using Dapplo.LogFacade.Loggers;
@@ -47,8 +46,12 @@ namespace Caliburn.Micro.Demo
 		{
 			LogSettings.Logger = new DebugLogger {Level = LogLevel.Verbose};
 #if DEBUG
+			_bootstrapper.Add(@"..\..\..\Dapplo.CaliburnMicro\bin\Debug", "Dapplo.CaliburnMicro.dll");
+			_bootstrapper.Add(@"..\..\..\Dapplo.CaliburnMicro.MahApps\bin\Debug", "Dapplo.CaliburnMicro.MahApps.dll");
 			_bootstrapper.Add(@"..\..\..\Caliburn.Micro.DemoAddon\bin\Debug", "Caliburn.Micro.DemoAddon.dll");
 #else
+			_bootstrapper.Add(@"..\..\..\Dapplo.CaliburnMicro\bin\Release", "Dapplo.CaliburnMicro.dll");
+			_bootstrapper.Add(@"..\..\..\Dapplo.CaliburnMicro.MahApps\bin\Release", "Dapplo.CaliburnMicro.MahApps.dll");
 			_bootstrapper.Add(@"..\..\..\Caliburn.Micro.DemoAddon\bin\Release", "Caliburn.Micro.DemoAddon.dll");
 #endif
 			await _bootstrapper.RunAsync();
