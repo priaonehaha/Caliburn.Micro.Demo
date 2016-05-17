@@ -90,7 +90,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Languages\language-de-DE.xml">
+    <None Include="Languages\language_demoaddon-de-DE.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -98,7 +98,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Languages\language-en-US.xml">
+    <None Include="Languages\language_demoaddon-en-US.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -106,6 +106,10 @@
     <ProjectReference Include="..\Caliburn.Micro.Demo\Caliburn.Micro.Demo.csproj">
       <Project>{7274f492-7384-4cfe-9f77-bdde2af09038}</Project>
       <Name>Caliburn.Micro.Demo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dapplo.CaliburnMicro\Dapplo.CaliburnMicro.csproj">
+      <Project>{4a9495b8-3638-4d5b-9d57-1a32f27e9c03}</Project>
+      <Name>Dapplo.CaliburnMicro</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

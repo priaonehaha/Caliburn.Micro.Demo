@@ -24,13 +24,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Windows.Controls.Primitives;
 using Caliburn.Micro.Demo.Interfaces;
 using Caliburn.Micro.Demo.Models;
+using Dapplo.CaliburnMicro;
+using Dapplo.CaliburnMicro.Extensions;
 using Dapplo.Config.Language;
 using Dapplo.Utils;
-using Dapplo.CaliburnMicro;
-using Dapplo.CaliburnMicro.NotifyIconWpf;
 using Hardcodet.Wpf.TaskbarNotification;
 
 #endregion
@@ -38,39 +37,56 @@ using Hardcodet.Wpf.TaskbarNotification;
 namespace Caliburn.Micro.Demo.ViewModels
 {
 	/// <summary>
-	/// The settings view model is, well... for the settings :)
-	/// It is a conductor where one item is active.
+	///     The settings view model is, well... for the settings :)
+	///     It is a conductor where one item is active.
 	/// </summary>
 	[Export(typeof(IShell))]
-	public class SettingsViewModel : Conductor<ISettingsControl>.Collection.OneActive, IShell
+	public class SettingsViewModel : Conductor<ISettingsControl>.Collection.OneActive, IShell, IPartImportsSatisfiedNotification
 	{
-		private ITrayIcon _trayIcon;
+		[Import]
+		private ICoreTranslations CoreTranslations { get; set; }
 
 		[Import]
 		private IDemoConfiguration DemoConfiguration { get; set; }
 
-		[Import]
-		private ITrayIconManager TrayIconManager { get; set; }
+		/// <summary>
+		///     Make the DisplayName be translatable
+		/// </summary>
+		public override string DisplayName
+		{
+			get { return CoreTranslations.Settings; }
+			set { throw new NotImplementedException(); }
+		}
 
 		/// <summary>
-		/// Get all settings controls, these are the items that are displayed.
+		///     Get all settings controls, these are the items that are displayed.
 		/// </summary>
 		[ImportMany]
 		private IEnumerable<ISettingsControl> SettingsControls { get; set; }
 
+		[Import]
+		private TrayIconViewModel TrayIconVm { get; set; }
+
+		[Import]
+		private IWindowManager WindowsManager { get; set; }
+
+		public void OnImportsSatisfied()
+		{
+			CoreTranslations.BindChanges(nameof(CoreTranslations.Settings), OnPropertyChanged, nameof(DisplayName));
+		}
+
 		/// <summary>
-		/// This is called when an item from the itemssource is selected
-		/// And will make sure that the selected item is made visible.
+		///     This is called when an item from the itemssource is selected
+		///     And will make sure that the selected item is made visible.
 		/// </summary>
 		/// <param name="view"></param>
 		public void ActivateChildView(ISettingsControl view)
 		{
 			ActivateItem(view);
-			_trayIcon.ShowBalloonTip("Hello", "This is a message", BalloonIcon.Warning);
 		}
 
 		/// <summary>
-		/// As soon as it's activated, the items that are imported are add to the Observable Items collection.
+		///     As soon as it's activated, the items that are imported are add to the Observable Items collection.
 		/// </summary>
 		protected override void OnActivate()
 		{
@@ -81,11 +97,10 @@ namespace Caliburn.Micro.Demo.ViewModels
 			// TODO: Sort them for a tree view, somehow...
 			Items.AddRange(SettingsControls);
 
-			// Create a TrayIcon for a view model
-			_trayIcon = TrayIconManager.GetOrCreateFor<TrayIconViewModel>();
-
-			_trayIcon.Show();
-			_trayIcon.ShowBalloonTip("Hello", "This is a message", BalloonIcon.Warning);
+			// Create the TrayIcon
+			WindowsManager.ShowPopup(TrayIconVm);
+			TrayIconVm.TrayIcon.Show();
+			TrayIconVm.TrayIcon.ShowBalloonTip("Hello", "This is a message", BalloonIcon.Warning);
 
 			UiContext.RunOn(async () => await LanguageLoader.Current.ChangeLanguageAsync(lang)).Wait();
 		}

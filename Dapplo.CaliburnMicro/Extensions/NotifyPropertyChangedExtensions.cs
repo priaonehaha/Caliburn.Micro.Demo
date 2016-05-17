@@ -19,10 +19,31 @@
 //  You should have a copy of the GNU Lesser General Public License
 //  along with Caliburn.Micro.Demo. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
 
-namespace Dapplo.CaliburnMicro.NotifyIconWpf
+#region using
+
+using System;
+using System.ComponentModel;
+
+#endregion
+
+namespace Dapplo.CaliburnMicro.Extensions
 {
-	public interface ITrayIconHolder
+	/// <summary>
+	///     Make a PropertyChange event with a certain property generate a PropertyChanged event with a different name.
+	///     This can be used to bind language changes to the DisplayName
+	/// </summary>
+	public static class NotifyPropertyChangedExtensions
 	{
-		ITrayIcon TrayIcon { get; set; }
+		public static void BindChanges<T1>(this T1 notifier, string notifierProperty, Action<PropertyChangedEventArgs> notifies, string notifiesProperty)
+			where T1 : INotifyPropertyChanged
+		{
+			notifier.PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == notifierProperty)
+				{
+					notifies(new PropertyChangedEventArgs(notifiesProperty));
+				}
+			};
+		}
 	}
 }

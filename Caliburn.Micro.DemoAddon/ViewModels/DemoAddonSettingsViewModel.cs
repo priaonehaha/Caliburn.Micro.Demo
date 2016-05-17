@@ -21,30 +21,41 @@
 
 #region using
 
-using System.Collections.Generic;
+using System;
 using System.ComponentModel.Composition;
-using System.Threading.Tasks;
 using Caliburn.Micro.Demo.Interfaces;
-using Caliburn.Micro.Demo.Models;
 using Caliburn.Micro.DemoAddon.Models;
-using Dapplo.Config.Language;
+using Dapplo.CaliburnMicro.Extensions;
 
 #endregion
 
 namespace Caliburn.Micro.DemoAddon.ViewModels
 {
 	[Export(typeof(ISettingsControl))]
-	public class DemoAddonSettingsViewModel : ISettingsControl
+	public class DemoAddonSettingsViewModel : Screen, ISettingsControl, IPartImportsSatisfiedNotification
 	{
 		[Import]
-		public IDemoAddonTranslations DemoAddonTranslations { get; set; }
+		public IDemoAddonConfiguration DemoAddonConfiguration { get; set; }
 
 		[Import]
-		public IDemoAddonConfiguration DemoAddonConfiguration { get; set; }
+		public IDemoAddonTranslations DemoAddonTranslations { get; set; }
 
 		/// <summary>
 		///     Implement the IHaveDisplayName
 		/// </summary>
-		public string DisplayName { get; set; } = "Demo addon";
+		public override string DisplayName
+		{
+			get
+			{
+				return DemoAddonTranslations.SomeText;
+			}
+			set { throw new NotImplementedException($"Set {nameof(DisplayName)}"); }
+		}
+
+
+		public void OnImportsSatisfied()
+		{
+			DemoAddonTranslations.BindChanges(nameof(DemoAddonTranslations.SomeText), OnPropertyChanged, nameof(DisplayName));
+		}
 	}
 }

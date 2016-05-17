@@ -22,40 +22,38 @@
 #region using
 
 using System;
-
+using System.Windows.Controls.Primitives;
+using Hardcodet.Wpf.TaskbarNotification;
 #if SYSTEM_DRAWING
 using System.Drawing;
 #endif
-
-using System.Windows.Controls.Primitives;
-using Hardcodet.Wpf.TaskbarNotification;
 
 #endregion
 
 namespace Dapplo.CaliburnMicro.NotifyIconWpf
 {
 	/// <summary>
-	/// This is the interface to the tray icon
+	///     This is the interface to the tray icon
 	/// </summary>
 	public interface ITrayIcon : IDisposable
 	{
 		/// <summary>
-		/// Close the actual balloon, if there is any
+		///     Close the actual balloon, if there is any
 		/// </summary>
 		void CloseBalloon();
 
 		/// <summary>
-		/// Hide the icon
+		///     Hide the icon
 		/// </summary>
 		void Hide();
 
 		/// <summary>
-		/// Show the icon
+		///     Show the icon
 		/// </summary>
 		void Show();
 
 		/// <summary>
-		/// Show a balloon with title, message and an icon
+		///     Show a balloon with title, message and an icon
 		/// </summary>
 		/// <param name="title"></param>
 		/// <param name="message"></param>
@@ -63,19 +61,19 @@ namespace Dapplo.CaliburnMicro.NotifyIconWpf
 		void ShowBalloonTip(string title, string message, BalloonIcon balloonIcon = BalloonIcon.Info);
 
 #if SYSTEM_DRAWING
-		/// <summary>
-		/// Show a balloon with title, message and an icon
-		/// </summary>
-		/// <param name="title"></param>
-		/// <param name="message"></param>
-		/// <param name="customIcon">Icon</param>
-		/// <param name="largeIcon">true to show the icon large</param>
+	/// <summary>
+	/// Show a balloon with title, message and an icon
+	/// </summary>
+	/// <param name="title"></param>
+	/// <param name="message"></param>
+	/// <param name="customIcon">Icon</param>
+	/// <param name="largeIcon">true to show the icon large</param>
 		void ShowBalloonTip(string title, string message, Icon customIcon, bool largeIcon = false);
 #endif
 
 		/// <summary>
-		/// Show a custom balloon (ViewModel first), using the specified animation.
-		/// After the timeout, the balloon is removed.
+		///     Show a custom balloon (ViewModel first), using the specified animation.
+		///     After the timeout, the balloon is removed.
 		/// </summary>
 		/// <typeparam name="T">Type for the ViewModel to show</typeparam>
 		/// <param name="animation">PopupAnimation</param>

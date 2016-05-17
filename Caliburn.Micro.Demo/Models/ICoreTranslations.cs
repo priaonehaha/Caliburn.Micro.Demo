@@ -33,7 +33,7 @@ namespace Caliburn.Micro.Demo.Models
 	{
 		string Cancel { get; }
 		string Language { get; }
-
 		string Ok { get; }
+		string Settings { get; }
 	}
 }

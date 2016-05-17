@@ -21,11 +21,13 @@
 
 #region using
 
-
-
 #endregion
 
+#region using
+
 using System.Windows.Controls;
+
+#endregion
 
 namespace Caliburn.Micro.DemoAddon.Views
 {

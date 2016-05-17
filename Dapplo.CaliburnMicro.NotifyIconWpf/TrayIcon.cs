@@ -22,38 +22,40 @@
 #region using
 
 using System;
+using System.Windows;
+using System.Windows.Controls.Primitives;
 using Caliburn.Micro;
-using Dapplo.LogFacade;
+using Hardcodet.Wpf.TaskbarNotification;
 
 #endregion
 
-namespace Dapplo.CaliburnMicro
+namespace Dapplo.CaliburnMicro.NotifyIconWpf
 {
-	/// <summary>
-	///     A logger for Caliburn
-	/// </summary>
-	public class CaliburnLogger : ILog
+	public class TrayIcon : TaskbarIcon, ITrayIcon
 	{
-		private readonly LogSource _log;
-
-		public CaliburnLogger(Type type)
+		/// <summary>
+		///     Show the icon
+		/// </summary>
+		public void Show()
 		{
-			_log = new LogSource(type);
+			Visibility = Visibility.Visible;
 		}
 
-		public void Error(Exception exception)
+		/// <summary>
+		///     Hide the icon
+		/// </summary>
+		public void Hide()
 		{
-			_log.Error().WriteLine(exception);
+			Visibility = Visibility.Collapsed;
 		}
 
-		public void Info(string format, params object[] args)
+		public void ShowBalloonTip<T>(PopupAnimation animation, TimeSpan? timeout = default(TimeSpan?))
 		{
-			_log.Info().WriteLine(format, args);
-		}
+			var rootModel = IoC.Get<T>();
 
-		public void Warn(string format, params object[] args)
-		{
-			_log.Warn().WriteLine(format, args);
+			var view = ViewLocator.LocateForModel(rootModel, null, null);
+			ViewModelBinder.Bind(rootModel, view, null);
+			ShowCustomBalloon(view, animation, timeout.HasValue ? (int) timeout.Value.TotalMilliseconds : (int?) null);
 		}
 	}
 }

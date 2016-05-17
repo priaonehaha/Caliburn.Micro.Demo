@@ -19,10 +19,27 @@
 //  You should have a copy of the GNU Lesser General Public License
 //  along with Caliburn.Micro.Demo. If not, see <http://www.gnu.org/licenses/lgpl.txt>.
 
+#region using
+
+using System.Windows.Controls.Primitives;
+using Caliburn.Micro;
+
+#endregion
+
 namespace Dapplo.CaliburnMicro.NotifyIconWpf
 {
-	public interface ITrayIconManager
+	/// <summary>
+	///     Make your ViewModel extend this, instead of Screen, so you can get to the ITrayIcon
+	/// </summary>
+	public class TrayIconScreen : Screen
 	{
-		ITrayIcon GetOrCreateFor<T>();
+		public ITrayIcon TrayIcon
+		{
+			get
+			{
+				var popup = GetView() as Popup;
+				return popup?.Child as ITrayIcon;
+			}
+		}
 	}
 }

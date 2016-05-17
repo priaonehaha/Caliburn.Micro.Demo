@@ -28,9 +28,9 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using Caliburn.Micro;
 using Dapplo.Addons;
-using System.Windows;
 
 #endregion
 
@@ -84,16 +84,7 @@ namespace Dapplo.CaliburnMicro
 		}
 
 		/// <summary>
-		/// Return all assemblies that the Dapplo Bootstrapper knows of
-		/// </summary>
-		/// <returns></returns>
-		protected override IEnumerable<Assembly> SelectAssemblies()
-		{
-			return ServiceRepository.KnownAssemblies;
-		}
-
-		/// <summary>
-		/// Return all instances of a certain service type
+		///     Return all instances of a certain service type
 		/// </summary>
 		/// <param name="serviceType"></param>
 		protected override IEnumerable<object> GetAllInstances(Type serviceType)
@@ -115,6 +106,15 @@ namespace Dapplo.CaliburnMicro
 		protected override void OnStartup(object sender, StartupEventArgs e)
 		{
 			DisplayRootViewFor<IShell>();
+		}
+
+		/// <summary>
+		///     Return all assemblies that the Dapplo Bootstrapper knows of
+		/// </summary>
+		/// <returns></returns>
+		protected override IEnumerable<Assembly> SelectAssemblies()
+		{
+			return ServiceRepository.KnownAssemblies;
 		}
 	}
 }

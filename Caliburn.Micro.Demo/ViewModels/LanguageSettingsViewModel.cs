@@ -27,6 +27,7 @@ using System.ComponentModel.Composition;
 using System.Threading.Tasks;
 using Caliburn.Micro.Demo.Interfaces;
 using Caliburn.Micro.Demo.Models;
+using Dapplo.CaliburnMicro.Extensions;
 using Dapplo.Config.Language;
 
 #endregion
@@ -34,7 +35,7 @@ using Dapplo.Config.Language;
 namespace Caliburn.Micro.Demo.ViewModels
 {
 	[Export(typeof(ISettingsControl))]
-	public class LanguageSettingsViewModel : ISettingsControl
+	public class LanguageSettingsViewModel : Screen, ISettingsControl, IPartImportsSatisfiedNotification
 	{
 		public IDictionary<string, string> AvailableLanguages => LanguageLoader.Current.AvailableLanguages;
 
@@ -49,20 +50,21 @@ namespace Caliburn.Micro.Demo.ViewModels
 		[Import]
 		public IDemoConfiguration DemoConfiguration { get; set; }
 
+		public void OnImportsSatisfied()
+		{
+			CoreTranslations.BindChanges(nameof(CoreTranslations.Language), OnPropertyChanged, nameof(DisplayName));
+		}
+
 		/// <summary>
 		///     Implement the IHaveDisplayName
 		/// </summary>
-		public string DisplayName
+		public override string DisplayName
 		{
 			get
 			{
-				// TODO: Invent something which generates an event if the language changes.
 				return CoreTranslations.Language;
 			}
-			set
-			{
-				throw new NotImplementedException($"Set {nameof(DisplayName)}");
-			}
+			set { throw new NotImplementedException($"Set {nameof(DisplayName)}"); }
 		}
 
 		public async Task ChangeLanguage()
