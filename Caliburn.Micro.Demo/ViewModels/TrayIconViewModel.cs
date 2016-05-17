@@ -1,17 +1,34 @@
-﻿using System.ComponentModel.Composition;
-using System.Windows;
-using Dapplo.CaliburnMicro.NotifyIconWpf;
+﻿using Dapplo.LogFacade;
+using System.ComponentModel.Composition;
 
 namespace Caliburn.Micro.Demo.ViewModels
 {
 	[Export]
-	public class TrayIconViewModel : ISetTrayIconInstance
+	public class TrayIconViewModel
 	{
-		public ITrayIcon Icon { get; set; }
+		private static readonly LogSource Log = new LogSource();
 
-		public void DoSomething()
+		public void Update()
 		{
-			MessageBox.Show("Hello");
+			Log.Debug().WriteLine("Update");
+		}
+		public void Exit()
+		{
+			Log.Debug().WriteLine("Exit");
+		}
+		public void Configure()
+		{
+			Log.Debug().WriteLine("Configure");
+		}
+
+		public bool CanShowSomething()
+		{
+			return true;
+		}
+
+		public void ShowSomething()
+		{
+			Log.Debug().WriteLine("ShowSomething");
 		}
 	}
 }

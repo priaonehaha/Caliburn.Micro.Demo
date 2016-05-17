@@ -106,6 +106,7 @@
     <Compile Include="Models\IDemoConfiguration.cs" />
     <Compile Include="Interfaces\ISettingsControl.cs" />
     <Compile Include="Models\ICoreTranslations.cs" />
+    <Compile Include="RoutedEventTrigger.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\CredentialsViewModel.cs" />
     <Compile Include="Models\ICredentialsTranslations.cs" />

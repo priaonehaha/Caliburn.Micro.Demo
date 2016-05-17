@@ -32,11 +32,14 @@ using Hardcodet.Wpf.TaskbarNotification;
 
 namespace Dapplo.CaliburnMicro.NotifyIconWpf
 {
-	internal class TrayIconWrapper : ITrayIcon
+	/// <summary>
+	/// Wrap the TrayIcon and manage it
+	/// </summary>
+	public class TrayIconContainer : ITrayIcon
 	{
 		private readonly TaskbarIcon _icon;
 
-		public TrayIconWrapper(TaskbarIcon icon)
+		public TrayIconContainer(TaskbarIcon icon)
 		{
 			_icon = icon;
 		}

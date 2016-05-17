@@ -21,8 +21,8 @@
 
 namespace Dapplo.CaliburnMicro.NotifyIconWpf
 {
-	public interface ISetTrayIconInstance
+	public interface ITrayIconHolder
 	{
-		ITrayIcon Icon { set; }
+		ITrayIcon TrayIcon { get; set; }
 	}
 }

@@ -44,7 +44,7 @@ namespace Caliburn.Micro.Demo
 
 		private async void App_OnStartup(object sender, StartupEventArgs e)
 		{
-			LogSettings.Logger = new DebugLogger {Level = LogLevel.Debug};
+			LogSettings.Logger = new DebugLogger {Level = LogLevel.Verbose};
 #if DEBUG
 			_bootstrapper.Add(@"..\..\..\Dapplo.CaliburnMicro\bin\Debug", "Dapplo.CaliburnMicro.dll");
 			_bootstrapper.Add(@"..\..\..\Dapplo.CaliburnMicro.MahApps\bin\Debug", "Dapplo.CaliburnMicro.MahApps.dll");

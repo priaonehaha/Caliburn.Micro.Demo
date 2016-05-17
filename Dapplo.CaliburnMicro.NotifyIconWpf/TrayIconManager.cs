@@ -28,11 +28,15 @@ using System.Linq;
 using Caliburn.Micro;
 using Dapplo.Addons;
 using Hardcodet.Wpf.TaskbarNotification;
+using System.Windows;
 
 #endregion
 
 namespace Dapplo.CaliburnMicro.NotifyIconWpf
 {
+	/// <summary>
+	/// This is used to track and make sure the TrayIcon is only instaciated once per ViewModel
+	/// </summary>
 	[Export(typeof(ITrayIconManager))]
 	public class TrayIconManager : ITrayIconManager
 	{
@@ -59,13 +63,13 @@ namespace Dapplo.CaliburnMicro.NotifyIconWpf
 				return Create<T>();
 			}
 
-			var wrapper = (TrayIconWrapper) reference.Target;
-			if (wrapper.IsDisposed)
+			var trayIcon = (TrayIconContainer) reference.Target;
+			if (trayIcon.IsDisposed)
 			{
 				return Create<T>();
 			}
 
-			return wrapper;
+			return trayIcon;
 		}
 
 		/// <summary>
@@ -76,25 +80,19 @@ namespace Dapplo.CaliburnMicro.NotifyIconWpf
 		private ITrayIcon Create<T>()
 		{
 			var rootModel = IoC.Get<T>();
-			var view = ViewLocator.LocateForModel(rootModel, null, null);
-			var taskbarIcon = view as TaskbarIcon;
-			var icon = taskbarIcon ?? new TaskbarIcon();
-			var wrapper = new TrayIconWrapper(icon);
 
-			ViewModelBinder.Bind(rootModel, view, null);
-			SetIconInstance(rootModel, wrapper);
-			_icons.Add(new WeakReference(rootModel), new WeakReference(wrapper));
+			var trayIconView = ViewLocator.LocateForModel(rootModel, null, null) as FrameworkElement;
+			var taskbarIcon = trayIconView.Resources.Values.Cast<object>().Where(x => x is TaskbarIcon).Cast<TaskbarIcon>().FirstOrDefault();
 
-			return wrapper;
-		}
+			var trayIconHolder = trayIconView as ITrayIconHolder;
+			var trayIconContainer = new TrayIconContainer(taskbarIcon);
 
-		private void SetIconInstance(object rootModel, ITrayIcon icon)
-		{
-			var instance = rootModel as ISetTrayIconInstance;
-			if (instance != null)
-			{
-				instance.Icon = icon;
-			}
+			trayIconHolder.TrayIcon = trayIconContainer;
+			_icons.Add(new WeakReference(rootModel), new WeakReference(trayIconContainer));
+
+			ViewModelBinder.Bind(rootModel, trayIconView, null);
+
+			return trayIconContainer;
 		}
 	}
 }

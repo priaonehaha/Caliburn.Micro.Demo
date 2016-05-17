@@ -21,6 +21,7 @@
 
 #region using
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Threading.Tasks;
@@ -51,7 +52,18 @@ namespace Caliburn.Micro.Demo.ViewModels
 		/// <summary>
 		///     Implement the IHaveDisplayName
 		/// </summary>
-		public string DisplayName { get; set; } = "Language";
+		public string DisplayName
+		{
+			get
+			{
+				// TODO: Invent something which generates an event if the language changes.
+				return CoreTranslations.Language;
+			}
+			set
+			{
+				throw new NotImplementedException($"Set {nameof(DisplayName)}");
+			}
+		}
 
 		public async Task ChangeLanguage()
 		{

@@ -66,6 +66,7 @@ namespace Caliburn.Micro.Demo.ViewModels
 		public void ActivateChildView(ISettingsControl view)
 		{
 			ActivateItem(view);
+			_trayIcon.ShowBalloonTip("Hello", "This is a message", BalloonIcon.Warning);
 		}
 
 		/// <summary>
@@ -80,6 +81,7 @@ namespace Caliburn.Micro.Demo.ViewModels
 			// TODO: Sort them for a tree view, somehow...
 			Items.AddRange(SettingsControls);
 
+			// Create a TrayIcon for a view model
 			_trayIcon = TrayIconManager.GetOrCreateFor<TrayIconViewModel>();
 
 			_trayIcon.Show();
