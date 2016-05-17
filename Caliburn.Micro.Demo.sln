@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapplo.CaliburnMicro", "Dap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapplo.CaliburnMicro.MahApps", "Dapplo.CaliburnMicro.MahApps\Dapplo.CaliburnMicro.MahApps.csproj", "{543ECF9B-9D56-4E87-A093-89EA2214424A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapplo.CaliburnMicro.NotifyIconWpf", "Dapplo.CaliburnMicro.NotifyIconWpf\Dapplo.CaliburnMicro.NotifyIconWpf.csproj", "{56F25CF5-9B4D-4FFF-AC41-0314E337E1DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{543ECF9B-9D56-4E87-A093-89EA2214424A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{543ECF9B-9D56-4E87-A093-89EA2214424A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{543ECF9B-9D56-4E87-A093-89EA2214424A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56F25CF5-9B4D-4FFF-AC41-0314E337E1DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56F25CF5-9B4D-4FFF-AC41-0314E337E1DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56F25CF5-9B4D-4FFF-AC41-0314E337E1DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56F25CF5-9B4D-4FFF-AC41-0314E337E1DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

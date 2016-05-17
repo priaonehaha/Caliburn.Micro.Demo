@@ -57,6 +57,8 @@ namespace Dapplo.CaliburnMicro
 		/// <param name="token">CancellationToken</param>
 		public Task StartAsync(CancellationToken token = default(CancellationToken))
 		{
+			LogManager.GetLog = type => new CaliburnLogger(type);
+
 			Initialize();
 			var windowManagers = ServiceLocator.GetExports<IWindowManager>();
 			if (!windowManagers.Any())

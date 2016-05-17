@@ -71,6 +71,11 @@ namespace Dapplo.CaliburnMicro.MahApps
 			return result;
 		}
 
+		/// <summary>Makes sure the view is a window or is wrapped by one.</summary>
+		/// <param name="model">The view model.</param>
+		/// <param name="view">The view.</param>
+		/// <param name="isDialog">Whethor or not the window is being shown as a dialog.</param>
+		/// <returns>The window.</returns>
 		protected override Window EnsureWindow(object model, object view, bool isDialog)
 		{
 			MetroWindow window = null;
@@ -132,7 +137,7 @@ namespace Dapplo.CaliburnMicro.MahApps
 				},
 				new ResourceDictionary
 				{
-					Source = new Uri("pack://application:,,,/Resources/Icons.xaml", UriKind.RelativeOrAbsolute)
+					Source = new Uri("pack://application:,,,/Dapplo.CaliburnMicro.MahApps;component/Resources/Icons.xaml", UriKind.RelativeOrAbsolute)
 				}
 			};
 		}

@@ -21,13 +21,17 @@
 
 #region using
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Windows.Controls.Primitives;
 using Caliburn.Micro.Demo.Interfaces;
 using Caliburn.Micro.Demo.Models;
 using Dapplo.Config.Language;
 using Dapplo.Utils;
 using Dapplo.CaliburnMicro;
+using Dapplo.CaliburnMicro.NotifyIconWpf;
+using Hardcodet.Wpf.TaskbarNotification;
 
 #endregion
 
@@ -40,8 +44,13 @@ namespace Caliburn.Micro.Demo.ViewModels
 	[Export(typeof(IShell))]
 	public class SettingsViewModel : Conductor<ISettingsControl>.Collection.OneActive, IShell
 	{
+		private ITrayIcon _trayIcon;
+
 		[Import]
 		private IDemoConfiguration DemoConfiguration { get; set; }
+
+		[Import]
+		private ITrayIconManager TrayIconManager { get; set; }
 
 		/// <summary>
 		/// Get all settings controls, these are the items that are displayed.
@@ -70,6 +79,11 @@ namespace Caliburn.Micro.Demo.ViewModels
 			// Add all the imported settings controls
 			// TODO: Sort them for a tree view, somehow...
 			Items.AddRange(SettingsControls);
+
+			_trayIcon = TrayIconManager.GetOrCreateFor<TrayIconViewModel>();
+
+			_trayIcon.Show();
+			_trayIcon.ShowBalloonTip("Hello", "This is a message", BalloonIcon.Warning);
 
 			UiContext.RunOn(async () => await LanguageLoader.Current.ChangeLanguageAsync(lang)).Wait();
 		}
